@@ -4,23 +4,32 @@
 
 {% block stylesheets %}
 <style>
+/* design CSS de la page */
 body { background: #f0f0f0; padding: 20px; }
-.container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; }
-.match { background: #f8f8f8; padding: 10px; margin: 5px 0; }
+.container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
+h1 { color: #2c3e50; text-align: center; }
+button { background: #3498db; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+.match { background: #f8f8f8; padding: 10px; margin: 5px 0; border-left: 3px solid #3498db; }
+.score { color: #e74c3c; font-weight: bold; }
+.date { color: #7f8c8d; font-size: 0.9em; }
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="container">
     <h1>Matchs</h1>
+    <!-- Bouton pour faire la mise a jour -->
     <button onclick="location.reload()">Mise à jour</button>
     
+    {# Boucle pour afficher tous les matchs #}
     {% for game in games %}
         <div class="match">
             <strong>{{ game.team1 }} vs {{ game.team2 }}</strong><br>
-            {{ game.score }} - {{ game.playedAt|date('d/m/Y H:i') }}
+            <span class="score">Score: {{ game.score }}</span><br>
+            <span class="date">{{ game.playedAt|date('d/m/Y H:i') }}</span>
         </div>
     {% else %}
+        <!-- Message si aucun match n'est trouvé -->
         <div class="match">Aucun match</div>
     {% endfor %}
 </div>
